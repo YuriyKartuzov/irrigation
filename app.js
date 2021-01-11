@@ -1,3 +1,7 @@
+// Irrigation server running on 192.168.0.99 port 80
+// for this reason Node needs to be run with `sudo`
+// sudo node ./app.js
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -22,3 +26,5 @@ app.get('/activate/:relayNum', (req, res) => {
       .then((result) => { res.send(result.msg) })
       .catch((reason) => { res.status(500).end("No good " +  reason.msg) })
 });
+
+

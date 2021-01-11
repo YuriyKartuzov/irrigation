@@ -2,7 +2,7 @@ $(document).ready( () => {
     //alert("Loaded");
 
     $("#rel1").click(() => {
-        activate(2);
+        activate(9);
     });
 });
 
