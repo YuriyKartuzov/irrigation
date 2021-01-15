@@ -1,13 +1,66 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Backyard</title>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <link rel='icon' href='flavicon.ico'>
-        <script src='index.js'></script>
-    </head>
-    <body>
-        <h2>Irrigation server</h2>
-        <button id='rel1'>Relay 1</button>
-    </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Home</title>
+  <link rel='icon' href='flavicon.ico'>
+
+  <link href="main.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"><img src="resources/mechanic.svg" style='height:40px' \>&nbsp; Kartz home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Irrigation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Survalance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Terminal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <span class="navbar-text" name="Date and time" id='timeDate'></span>
+      </div>
+    </nav>
+    <div name="relayGrid">
+      <table style="margin:auto">
+        <th colspan="8" style="margin:auto">
+          Water valves
+        </th>
+        <tr>
+          <td><button id='rel1' type="button" class="btn btn-success">Relay 1</button></td>
+          <td><button id='rel2' disabled>Relay 2</button></td>
+          <td><button id='rel3' disabled>Relay 3</button></td>
+          <td><button id='rel4' disabled>Relay 4</button></td>
+          <td><button id='rel5' disabled>Relay 5</button></td>
+          <td><button id='rel6' disabled>Relay 6</button></td>
+          <td><button id='rel7' disabled>Relay 7</button></td>
+          <td><button id='rel8' disabled>Relay 8</button></td>
+        </tr>
+      </table>
+    </div>
+</body>
+
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src='main.js'></script>

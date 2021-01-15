@@ -12,19 +12,29 @@ app.use(express.static('public'));
 app.use(express.static('api'));
 app.use(express.static('c'));
 
+// Driver file import
+const relay = require("./api/relay")
+
+//CONTROLERS ------------------------------------------------------------
 app.get("/", (req, res) => {
    res.sendFile("index.html");
 });
 
-app.listen(80, () => {
-   console.log("Server started on IP 192.168.0.99 port 80");
-});
-
 app.get('/activate/:relayNum', (req, res) => {
-   const relay = require('./api/relay');
    relay.activateRelay(req)
       .then((result) => { res.send(result.msg) })
       .catch((reason) => { res.status(500).end("No good " +  reason.msg) })
 });
 
+app.get('/status/:relayNum', (req, res) => {
+   relay.checkStatus(req)
+      .then((result) => { res.send(result.msg) })
+      .catch(() => { res.status(500) })
+})
+//----------------------------------------------------------------------
 
+
+// SERVER start
+app.listen(80, () => {
+   console.log("Server started on IP 192.168.0.99 port 80");
+});
