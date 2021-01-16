@@ -12,7 +12,7 @@
 int main(int argc, char *arv[])
 {
     if (gpioInitialise() < 0)
-        exit(1);
+        exit(1); 
     
     // Sensor data
     int data[5] = {0, 0, 0, 0, 0};
@@ -25,9 +25,11 @@ int main(int argc, char *arv[])
     float humidity = 0.0;
     float temperature = 0.0;
 
-    /* 4. Handshare */
+    /* Handshare */
     gpioSetMode(GPIO_PIN, PI_OUTPUT);
-    gpioWrite(GPIO_PIN, PI_LOW);
+    gpioWrite(GPIO_PIN, PI_HIGH); // Set initial state, to override default pin pull
+    gpioDelay(1500);
+    gpioWrite(GPIO_PIN, PI_LOW); // Pulling down signals to sensor
     gpioDelay(1500);
     gpioSetMode(GPIO_PIN, PI_INPUT);
     gpioDelay(30);
@@ -41,21 +43,21 @@ int main(int argc, char *arv[])
         {
             stateDuration++;
             // IMPORTANT. Function required adjustment from default to show data. Try values 1 - 10.
-            gpioDelay(1);
+            gpioDelay(2);
         };
 
         lastState = gpioRead(GPIO_PIN);
 
         // Count IGNORE: First 2 state changes are sensor signaling ready to send.
         // Count IGNORE: Each bit is preceeded by a state change to mark its beginning.
-        if ((stateChanges > 2) && (stateChanges % 2 == 0))
-        {
-            // 40 bits indexing produces: 0000000011111111222222223333333344444444
-            data[bitsRead / 8] <<= 1; // Each array element has 8 bits.  Shift Left 1 bit.
-            if (stateDuration > 16)   // A State Change > 16 microseconds is a '1'.
-                data[ bitsRead / 8 ] |= 0b00000001;
-            bitsRead++;
-        }
+        if (stateChanges < 3 || stateChanges % 2 != 0)
+            continue;
+    
+        // Recodring 40 bits to data arrays
+        data[bitsRead / 8] <<= 1; // Each array element has 8 bits.  Shift Left 1 bit.
+        if (stateDuration > 16)   // A St`ate Change > 16 microseconds is a '1'.
+            data[ bitsRead / 8 ] |= 0b00000001;
+        bitsRead++;
     }
 
     // Error checking

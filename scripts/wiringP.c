@@ -27,7 +27,7 @@ int main(int argc, char *arv[])
 
     /* Handshake */
     pinMode(DHT_PIN, OUTPUT);
-    digitalWrite(DHT_PIN, HIGH);
+    digitalWrite(DHT_PIN, HIGH); // Set initial state, to override default pin pull
     delay(10);
     digitalWrite(DHT_PIN, LOW);
     delay(1.5);
