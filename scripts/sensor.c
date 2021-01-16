@@ -42,7 +42,6 @@ int main(int argc, char *arv[])
         while ((gpioRead(GPIO_PIN) == lastState) && (stateDuration < 255)) 
         {
             stateDuration++;
-            // IMPORTANT. Function required adjustment from default to show data. Try values 1 - 10.
             gpioDelay(2);
         };
 
