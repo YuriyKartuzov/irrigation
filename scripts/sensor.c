@@ -1,4 +1,4 @@
-// DHT22 Humidity and Temperature sensor
+// 1PCSX Wired DHT22/AM2302 Digital Temperature and Humidity Sensor AM2302
 // COMPILE: gcc sensor.c -o sensor.exe -lpigpio
 
 #include <stdio.h>
