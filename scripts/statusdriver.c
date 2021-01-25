@@ -1,4 +1,4 @@
-// COMPILE: gcc ./api/c/statusdriver.c -o statusdriver -lpigpio -lrt -lpthread
+// COMPILE: gcc ./scripts/statusdriver.c -o ./scripts/statusdriver.exe -lpigpio -lrt -lpthread
 
 #include <stdio.h>
 #include <stdlib.h>

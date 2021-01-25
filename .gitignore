@@ -1,3 +1,4 @@
 node_modules/
 api/c/relaydriver
 *.exe
+.vscode

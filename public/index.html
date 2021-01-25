@@ -33,23 +33,27 @@
             <a class="nav-link" href="#">Pricing</a>
           </li>
         </ul>
-        <span class="navbar-text" name="Date and time" id='timeDate'></span>
+        <!-- <span class="navbar-text" name="Date and time" id='timeDate'></span> -->
+        <form class="form-inline" onsubmit="printLCD(event);">
+          <input class="form-control mr-sm-2" id='lcd_msg' type="search" placeholder="Print on LCD" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Print</button>
+        </form>
       </div>
     </nav>
     <div name="relayGrid">
       <table style="margin:auto">
-        <th colspan="8" style="margin:auto">
+        <th colspan="8" style="margin:auto;margin: auto;">
           Water valves
         </th>
         <tr>
-          <td><button id='rel1' type="button" class="btn btn-success">Relay 1</button></td>
-          <td><button id='rel2' disabled>Relay 2</button></td>
-          <td><button id='rel3' disabled>Relay 3</button></td>
-          <td><button id='rel4' disabled>Relay 4</button></td>
-          <td><button id='rel5' disabled>Relay 5</button></td>
-          <td><button id='rel6' disabled>Relay 6</button></td>
-          <td><button id='rel7' disabled>Relay 7</button></td>
-          <td><button id='rel8' disabled>Relay 8</button></td>
+          <td><button id='rel1' type="button" class="btn btn-outline-secondary">Relay 1</button></td>
+          <td><button id='rel2' type="button" class="btn btn-outline-secondary">Relay 2</button></td>
+          <td><button id='rel3' type="button" class="btn btn-outline-secondary">Relay 3</button></td>
+          <td><button id='rel4' type="button" class="btn btn-outline-secondary">Relay 4</button></td>
+          <td><button id='rel5' type="button" class="btn btn-outline-secondary">Relay 5</button></td>
+          <td><button id='rel6' type="button" class="btn btn-outline-secondary">Relay 6</button></td>
+          <td><button id='rel7' type="button" class="btn btn-outline-secondary">Relay 7</button></td>
+          <td><button id='rel8' type="button" class="btn btn-outline-secondary">Relay 8</button></td>
         </tr>
       </table>
     </div>

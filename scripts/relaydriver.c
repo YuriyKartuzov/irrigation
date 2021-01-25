@@ -1,4 +1,4 @@
-// gcc relaydriver.c -o relaydriver -lpigpio -lrt -lpthread
+// gcc ./scripts/relaydriver.c -o ./scripts/relaydriver.exe -lpigpio -lrt -lpthread
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,14 +1,45 @@
 // Initialization
 $(document).ready(() => {
     $("#rel1").click(() => {
-        var ans = activate(9);
+        var ans = activate(1);
+        console.log(ans);
+    });
+    $("#rel2").click(() => {
+        var ans = activate(2);
+        console.log(ans);
+    });
+    $("#rel3").click(() => {
+        var ans = activate(3);
+        console.log(ans);
+    });
+    $("#rel4").click(() => {
+        var ans = activate(4);
+        console.log(ans);
+    });
+    $("#rel5").click(() => {
+        var ans = activate(5);
+        console.log(ans);
+    });
+    $("#rel6").click(() => {
+        var ans = activate(6);
+        console.log(ans);
+    });
+    $("#rel7").click(() => {
+        var ans = activate(7);
+        console.log(ans);
+    });
+    $("#rel8").click(() => {
+        var ans = activate(8);
         console.log(ans);
     });
 
+
+
     // Start of the clock & date
-    StartClock()
+    // StartClock()
 
     // Set up polling for button status
+    /*
     let polling = setInterval(() => {
         // Needs to be ajax since it need timeout, important 
 
@@ -38,16 +69,31 @@ $(document).ready(() => {
             clearInterval(isPolling)
         }
     });
+    */
 
 });
 
+function printLCD(e) {
+    e.preventDefault();
+    var text = $("#lcd_msg").val();
+    $.get("/lcd/" + text);
+    var text = $("#lcd_msg").val("");
+    return;
+}
+
 // Activate relay
 function activate(rel) {
-    $.get("/activate/" + rel).done((data) => {
-        console.log("Relay one clicked: " + JSON.stringify(data));
-        return data;
+
+    $.get("/activate/" + rel).done((status) => {
+        if(status == "ON"){
+            $("#rel" + rel).removeClass("btn-outline-secondary");
+            $("#rel" + rel).addClass("btn-success");
+        } else if(status == "OFF"){
+            $("#rel" + rel).removeClass("btn-success");
+            $("#rel" + rel).addClass("btn-outline-secondary");
+        }
     }).fail((data) => {
-        alert(JSON.stringify(data));
+        alert("Relay is busy try again");
     });
 }
 

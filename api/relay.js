@@ -1,18 +1,23 @@
-const fs = require('fs');
 const { exec } = require('child_process');
-const { resolve } = require('path');
+
+// Relay GPIO pins
+let relayMap = [0, 19, 20, 21, 22, 23, 24, 25, 26];
 
 module.exports = {
 	activateRelay: function activateRelay(req) {
 		return new Promise((resolve, reject) => {
-			var relayNum = req.params.relayNum;
-			var cmd = './api/c/relaydriver ' + relayNum;
+
+			var param = req.params.relayNum;
+			var relayNum = relayMap[param];
+			var cmd = './scripts/relaydriver ' + relayNum;
 
 			exec(cmd, (err, stdout, stderr) => {
-				if (err)
-					reject({ status: 500, msg: "relay.js: ERROR (relay.js): " + JSON.stringify(stderr) });
+				if (err){
+					console.log("Relay.js ERROR: " + stderr);
+					reject({ status: 500, msg: "Relay is busy, try again." });
+				}
 				else
-					resolve({ status: 200, msg: stdout });
+					resolve({ status: 200, status: stdout });
 			});
 		})
 	},
@@ -23,7 +28,6 @@ module.exports = {
 			var cmd = './api/c/statusdriver ' + relayNum;
 
 			exec(cmd, (err, stdout, stderr) => {
-				console.log("stdout: " + stdout);
 				if (err)
 					reject({ status: 500, msg: stderr });
 				else
