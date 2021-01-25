@@ -9,7 +9,7 @@ module.exports = {
 
 			var param = req.params.relayNum;
 			var relayNum = relayMap[param];
-			var cmd = './scripts/relaydriver ' + relayNum;
+			var cmd = './scripts/relaydriver.exe ' + relayNum;
 
 			exec(cmd, (err, stdout, stderr) => {
 				if (err){
@@ -25,7 +25,7 @@ module.exports = {
 	checkStatus: function checkStatus(req) {
 		return new Promise((resolve, reject) => {
 			var relayNum = req.params.relayNum;
-			var cmd = './api/c/statusdriver ' + relayNum;
+			var cmd = './api/c/statusdriver.exe ' + relayNum;
 
 			exec(cmd, (err, stdout, stderr) => {
 				if (err)
