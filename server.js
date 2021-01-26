@@ -14,6 +14,8 @@ app.use(express.static('c'));
 // Driver file import
 const relay = require("./api/relay")
 const lcd = require("./api/lcd")
+const dev = require("./api/dev");
+const PiCamera = require('pi-camera');
 
 //CONTROLERS ------------------------------------------------------------
 app.get("/", (req, res) => {
@@ -37,6 +39,33 @@ app.get("/lcd/:msg", (req, res) => {
       .then(() => res.sendStatus(200))
       .catch(() => res.sendStatus(500))
 });
+
+app.get("/term/:cmd", (req, res) => {
+   dev.terminal(req)
+      .then(response => { console.log("SUCCESS: " + response); res.send(response); })
+      .catch(reason => res.send(reason));
+});
+
+app.get("/getPic", (req, res)=>{
+   // PiCamera module
+   // INSTALL: npm install pi-camera
+   const myCamera = new PiCamera({
+      mode: 'photo',
+      width: 640,
+      height: 480,
+      hflip: true,
+      vflip: true,
+      nopreview: true,
+    });
+   myCamera.snapDataUrl()
+      .then((result) => {
+         res.status(200).end(result);
+      })
+      .catch((error) => {
+         res.status(500).end(error);
+      })
+});
+
 //----------------------------------------------------------------------
 // SERVER start
 app.listen(80, () => {
