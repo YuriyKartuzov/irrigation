@@ -1,6 +1,5 @@
 // Irrigation server running on 192.168.0.99 port 80
-// for this reason Node needs to be run with `sudo`
-// sudo pm2 start server.js - run only once
+// START: sudo pm2 start server.js - run only once
 
 const express = require('express');
 const path = require('path');

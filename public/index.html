@@ -4,16 +4,16 @@
 <head>
   <title>Home</title>
   <link rel='icon' href='flavicon.ico'>
-
-  <link href="main.css" rel="stylesheet" type="text/css" />
-
+  <link href="main.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#"><img src="resources/mechanic.svg" style='height:40px' \>&nbsp; Kartz home</a>
+      <a class="navbar-brand" href="javascript:window.location.reload(true)">
+        <img src="resources/mechanic.svg" style='height:40px' \>&nbsp; Kartz home
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,16 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Irrigation</a>
+            <a class="nav-link" onclick="irrigationView(); return false;" id='irrigationView' href="#">Irrigation</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Survalance</a>
+            <a class="nav-link" onclick="cameraView(); return false;" id='cameraView' href="#">Camera</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Terminal</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" onclick="terminalView(); return false;" id='terminalView' href="#">Terminal</a>
           </li>
         </ul>
         <!-- <span class="navbar-text" name="Date and time" id='timeDate'></span> -->
@@ -40,23 +37,7 @@
         </form>
       </div>
     </nav>
-    <div name="relayGrid">
-      <table style="margin:auto">
-        <th colspan="8" style="margin:auto;margin: auto;">
-          Water valves
-        </th>
-        <tr>
-          <td><button id='rel1' type="button" class="btn btn-outline-secondary">Relay 1</button></td>
-          <td><button id='rel2' type="button" class="btn btn-outline-secondary">Relay 2</button></td>
-          <td><button id='rel3' type="button" class="btn btn-outline-secondary">Relay 3</button></td>
-          <td><button id='rel4' type="button" class="btn btn-outline-secondary">Relay 4</button></td>
-          <td><button id='rel5' type="button" class="btn btn-outline-secondary">Relay 5</button></td>
-          <td><button id='rel6' type="button" class="btn btn-outline-secondary">Relay 6</button></td>
-          <td><button id='rel7' type="button" class="btn btn-outline-secondary">Relay 7</button></td>
-          <td><button id='rel8' type="button" class="btn btn-outline-secondary">Relay 8</button></td>
-        </tr>
-      </table>
-    </div>
+    <div id='mainArea'></div>
 </body>
 
 </html>
@@ -67,4 +48,7 @@
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src='main.js'></script>
+  <script src='relayView.js'></script>
+  <script src='cameraView.js'></script>
+  <script src='terminalView.js'></script>
+  <script src='main.js'></script>
