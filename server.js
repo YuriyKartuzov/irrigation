@@ -2,20 +2,26 @@
 // START: sudo pm2 start server.js - run only once
 
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
 const app = express();
+const server = require('http').createServer(app);
+
+// Module for cameraView
+const PiCamera = require('pi-camera');
+
+
 
 // Middleware
 app.use(express.static('public'));
 app.use(express.static('api'));
-app.use(express.static('c'));
 
 // Driver file import
 const relay = require("./api/relay")
-const lcd = require("./api/lcd")
-const dev = require("./api/dev");
-const PiCamera = require('pi-camera');
+const lcd   = require("./api/lcd")
+const dev   = require("./api/dev");
+
+
+// WEB SOCKETS ----------------------------- TODO
+const WebSockets = require('ws');
 
 //CONTROLERS ------------------------------------------------------------
 app.get("/", (req, res) => {
@@ -46,9 +52,7 @@ app.get("/term/:cmd", (req, res) => {
       .catch(reason => res.send(reason));
 });
 
-app.get("/getPic", (req, res)=>{
-   // PiCamera module
-   // INSTALL: npm install pi-camera
+app.get("/getPic", (req, res) => {
    const myCamera = new PiCamera({
       mode: 'photo',
       width: 640,
@@ -56,7 +60,7 @@ app.get("/getPic", (req, res)=>{
       hflip: true,
       vflip: true,
       nopreview: true,
-    });
+   });
    myCamera.snapDataUrl()
       .then((result) => {
          res.status(200).end(result);
@@ -68,6 +72,6 @@ app.get("/getPic", (req, res)=>{
 
 //----------------------------------------------------------------------
 // SERVER start
-app.listen(80, () => {
+server.listen(80, () => {
    console.log("Server started on IP 192.168.0.99 port 80");
 });

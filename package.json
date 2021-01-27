@@ -5,7 +5,9 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
-    "pm2": "^4.5.1"
+    "pi-camera": "^1.5.0",
+    "pm2": "^4.5.1",
+    "ws": "^7.4.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
