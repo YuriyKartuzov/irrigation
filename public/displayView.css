@@ -1,0 +1,8 @@
+#displayGrid {
+    margin:auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    height:50%;
+    width: 50%;
+    border: black solid 1px;
+}

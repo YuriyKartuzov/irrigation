@@ -6,6 +6,7 @@
   <link rel='icon' href='flavicon.ico'>
   <link href="main.css" rel="stylesheet" type="text/css"/>
   <link href="cameraView.css" rel="stylesheet" type="text/css"/>
+  <link href="displayView.css" rel="stylesheet" type="text/css"/>
   <link href="terminalView.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 </head>
@@ -28,14 +29,12 @@
             <a class="nav-link" onclick="cameraView(); return false;" id='cameraView' href="#">Camera</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" onclick="displayView(); return false;" id='displayView' href="#">Display</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" onclick="terminalView(); return false;" id='terminalView' href="#">Terminal</a>
           </li>
         </ul>
-        <!-- <span class="navbar-text" name="Date and time" id='timeDate'></span> -->
-        <form class="form-inline" onsubmit="printLCD(event);">
-          <input class="form-control mr-sm-2" id='lcd_msg' type="search" placeholder="Print on LCD" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Print</button>
-        </form>
       </div>
     </nav>
     <div id='mainArea'></div>
@@ -50,4 +49,5 @@
   <script src='relayView.js'></script>
   <script src='cameraView.js'></script>
   <script src='terminalView.js'></script>
+  <script src='displayView.js'></script>
   <script src='main.js'></script>

@@ -16,8 +16,8 @@ app.use(express.static('api'));
 
 // Driver file import
 const relay = require("./api/relay")
-const lcd   = require("./api/lcd")
-const dev   = require("./api/dev");
+const lcd = require("./api/lcd")
+const dev = require("./api/dev");
 
 
 // WEB SOCKETS ----------------------------- TODO
@@ -30,25 +30,42 @@ app.get("/", (req, res) => {
 
 app.get('/activate/:relayNum', (req, res) => {
    relay.activateRelay(req)
-      .then((result) => { res.status(200).end(result.status) })
-      .catch((reason) => { res.status(500).end(reason.msg) })
+      .then((result) => {
+         res.status(200).end(result.status)
+      })
+      .catch((reason) => {
+         res.status(500).end(reason.msg)
+      })
 });
 
 app.get('/status/:relayNum', (req, res) => {
    relay.checkStatus(req)
-      .then((result) => { res.send(result.msg) })
-      .catch(() => { res.status(500) })
+      .then((result) => {
+         res.send(result.msg)
+      })
+      .catch(() => {
+         res.status(500)
+      })
 })
 
-app.get("/lcd/:msg", (req, res) => {
+app.get("/lcd/text/:msg", (req, res) => {
    lcd.print(req)
-      .then(() => res.sendStatus(200))
-      .catch(() => res.sendStatus(500))
+      .then(() => res.status(200).end("good"))
+      .catch((er) => res.status(500).end(er));
+});
+
+app.get("/lcd/weather/", (request, response) => {
+   lcd.weather(request)
+      .then((result) => response.status(200).end(result))
+      .catch((reason) => response.status(500).end(reason));
 });
 
 app.get("/term/:cmd", (req, res) => {
    dev.terminal(req)
-      .then(response => { console.log("SUCCESS: " + response); res.send(response); })
+      .then(response => {
+         console.log("SUCCESS: " + response);
+         res.send(response);
+      })
       .catch(reason => res.send(reason));
 });
 

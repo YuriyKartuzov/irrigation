@@ -1,16 +1,9 @@
 
 // Initialization
 $(document).ready(() => {
-    
+    //displayView();
 });
 
-function printLCD(e) {
-    e.preventDefault();
-    var text = $("#lcd_msg").val();
-    $.get("/lcd/" + text);
-    var text = $("#lcd_msg").val("");
-    return;
-}
 
 
 
