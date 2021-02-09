@@ -11,13 +11,14 @@ const PiCamera = require('pi-camera');
 
 
 // Middleware
-app.use(express.static('public'));
-app.use(express.static('api'));
+app.use(express.static('public'))
+app.use(express.static('api'))
+app.use(express.static('keys'))
 
 // Driver file import
 const relay = require("./api/relay")
 const lcd = require("./api/lcd")
-const dev = require("./api/dev");
+const dev = require("./api/dev")
 
 
 // WEB SOCKETS ----------------------------- TODO
@@ -51,13 +52,13 @@ app.get('/status/:relayNum', (req, res) => {
 app.get("/lcd/text/:msg", (req, res) => {
    lcd.print(req)
       .then(() => res.status(200).end("good"))
-      .catch((er) => res.status(500).end(er));
+      .catch((er) => res.status(500).end(JSON.stringify(er)));
 });
 
 app.get("/lcd/weather/", (request, response) => {
    lcd.weather(request)
-      .then((result) => response.status(200).end(result))
-      .catch((reason) => response.status(500).end(reason));
+      .then((result) => response.status(200).end("done"))
+      .catch((reason) => response.status(500).end("error"));
 });
 
 app.get("/term/:cmd", (req, res) => {

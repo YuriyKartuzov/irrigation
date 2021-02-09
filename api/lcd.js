@@ -1,5 +1,7 @@
+'use strict'
 const {exec} = require('child_process');
 const axios = require('axios');
+const fs = require('fs')
 var currentInterval;
 
 var display = {
@@ -25,7 +27,7 @@ module.exports = {
                     reject();
                 } else {
                     resolve();
-                    currentDisplayView = 'custom message'
+                    display.currentDisplayView = 'custom message'
                 }
             });
         })
@@ -33,48 +35,59 @@ module.exports = {
     weather: function weather(request) {
         return new Promise((resolve, reject) => {
 
-            if(display.currentDisplayView == 'weather')
+            if (display.currentDisplayView == 'weather') {
                 resolve();
-            else
-                display.currentDisplayView = 'weather'
+                return;
+            } 
+            
+            display.currentDisplayView = 'weather'
+            let apiKey = '';
+            try {
+                apiKey = fs.readFileSync('./keys/weather.key');    
+            }catch (e){
+                reject("Weather Api key not found");
+                return;
+            }
 
-            let apiKey = "d272364289de081755defeaa6dea8795";
             let cityId = 6122091;
             let url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&units=metric&appid=${apiKey}`
-            
-            resolve();
 
             const weatherTimeout = setInterval(() => {
                 axios.get(url).then(res => {
-                    var flag = false;
+                        var flag = false;
 
-                    if (display.temp !=  Math.floor(res.data.main.temp)){
-                        flag = true;
-                        display.temp =  Math.floor(res.data.main.temp);
-                    }
+                        if (display.temp != res.data.main.temp.toFixed(0)) {
+                            flag = true;
+                            display.temp = res.data.main.temp.toFixed(0);
+                        }
 
-                    if(display.feels_like != Math.floor(res.data.main.feels_like)) {
-                        flag = true;
-                        display.feels_like = Math.floor(res.data.main.feels_like);
-                    }
+                        if (display.feels_like != res.data.main.feels_like.toFixed(0)) {
+                            flag = true;
+                            display.feels_like = res.data.main.feels_like.toFixed(0);
+                        }
 
-                    if(display.humidity != Math.floor(res.data.main.humidity)){
-                        flag = true;
-                        display.humidity = Math.floor(res.data.main.humidity);
-                    }
+                        if (display.humidity != res.data.main.humidity.toFixed(0)) {
+                            flag = true;
+                            display.humidity = res.data.main.humidity.toFixed(0);
+                        }
 
-                    if(display.pressure != res.data.main.preassure){
-                        flag = true;
-                        display.pressure = res.data.main.pressure;
-                    }
+                        if (display.pressure != res.data.main.preassure) {
+                            flag = true;
+                            display.pressure = res.data.main.pressure;
+                        }
 
-                    if(flag)
-                        internal_print(`T: ${display.temp} C (${display.feels_like} C)H: ${display.humidity}% P: ${display.pressure}`);
-                
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                        if (flag){
+                            let line1 = `T: ${display.temp} C (${display.feels_like} C)`;
+                            let line2 = `H: ${display.humidity}% P: ${display.pressure}`;
+                            line1 = line1.padEnd(16, ' ');
+                            
+                            internal_print(line1 + line2);
+                        }
+                           
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             }, 5000)
 
             resolve();
