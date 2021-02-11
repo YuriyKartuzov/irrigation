@@ -12,11 +12,17 @@ var display = {
     feels_like: 0,
     humidity: 0,
     pressure: 0,
-    soil_sensors: [{
+    soil_sensors: [
+        {
+            name: "Sensor 1",
             macAddress: "8C:AA:B5:77:D4:75",
             value: 0
         },
-
+        {
+            name: "Sensor 2",
+            macAddress: "8C:AA:B5:77:F4:3D",
+            value: 0
+        }
     ],
     currentInterval: ''
 
@@ -27,17 +33,16 @@ module.exports = {
     update_ESP8266: function update_ESP8266(req) {
         return new Promise((resolve, reject) => {
 
-
             var macAddress = req.params.moistureContent.split("=")[0];
             var moisture = req.params.moistureContent.split('=')[1];
 
             display.soil_sensors.forEach(el => {
-                if (el.macAddress = macAddress) {
+                if (el.macAddress == macAddress) {
                     el.value = moisture;
+                    resolve();
+                    return;
                 }
             })
-
-            resolve();    
         })
     },
 
@@ -139,16 +144,20 @@ module.exports = {
             display.currentDisplayView = 'sensors';
 
             const sensorTimeout = setInterval(() => {
+                var msg_line2 = '';
+
                 display.soil_sensors.forEach(el => {
-                    var msg = "Moisture:".padEnd(16, " ") + el.value + "%";
-                    internal_print(msg);
+                    msg_line2 += el.value + "%  ";
                 });
+
+                var msg_line1 = "S1:  S2:".padEnd(16, " ");
+                internal_print(msg_line1 + msg_line2);
+
             }, 1000);
 
             resolve();
             display.currentInterval = sensorTimeout;
         });
-
     }
 }
 
