@@ -23,6 +23,7 @@ const dev = require("./api/dev")
 
 // WEB SOCKETS ----------------------------- TODO
 const WebSockets = require('ws');
+const { response } = require('express');
 
 //CONTROLERS ------------------------------------------------------------
 app.get("/", (req, res) => {
@@ -61,6 +62,12 @@ app.get("/lcd/weather/", (request, response) => {
       .catch((reason) => response.status(500).end("error"));
 });
 
+app.get("/lcd/soilsensors/", (req, res) => {
+   lcd.printESP8266()
+      .then(response.sendStatus(200))
+      .catch(response.sendStatus(500));
+})
+
 app.get("/term/:cmd", (req, res) => {
    dev.terminal(req)
       .then(response => {
@@ -68,6 +75,12 @@ app.get("/term/:cmd", (req, res) => {
          res.send(response);
       })
       .catch(reason => res.send(reason));
+});
+
+app.get("/soil/:moistureContent", (req, res) => {
+   lcd.update_ESP8266(req)
+      .then(() => res.status(200).end("good"))
+      .catch((er) => res.status(500).end(JSON.stringify(er)));
 });
 
 app.get("/getPic", (req, res) => {

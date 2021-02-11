@@ -26,7 +26,7 @@ function displayView() {
                 </tr>
                 <tr>
                     <td>
-                        <button onclick='techLCD(event);'>Display IP address</button>
+                        <button onclick='soilSensors(event);'>Soil Sensors</button>
                     </td>
                 </tr>
                 <tr>
@@ -57,6 +57,11 @@ function weatherLCD(e) {
     e.preventDefault();
     $.get('/lcd/weather/');
 }       
+
+function soilSensors(e){
+    e.preventDefault();
+    $.get('/lcd/soilsensors/');
+}
 
 function techLCD(ef) {
     e.preventDefault();
