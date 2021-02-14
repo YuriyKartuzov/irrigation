@@ -23,35 +23,30 @@ void setup()
     delay(2000);
 
     WiFi.mode(WIFI_STA);
-    WiFiMulti.addAP("SSID", "PASSWORD");
-
-    pinMode(LED_BUILTIN, OUTPUT);
-    
+    WiFiMulti.addAP("Kartz", "wasaga2020");
 }
 
 void loop()
 {
+    digitalWrite(LED_BUILTIN, LOW);
+    
     if ((WiFiMulti.run() == WL_CONNECTED))
     {
-        digitalWrite(LED_BUILTIN, LOW);
+
         WiFiClient client;
         HTTPClient http;
 
-        // Soil Moisture
-        sensorValue = analogRead(analogInPin);
-        outputValue = map(sensorValue, 395, 805, 100, 0);
+        // Debug message
+        //Serial.println(WiFi.macAddress() + "=" + analogRead(analogInPin));
 
-        message = WiFi.macAddress() + "=" + String(outputValue);
-        //Serial.println(message);
-
-        if (http.begin(client, "http://192.168.0.99/soil/" + message))
-        { 
-            // start connection and send HTTP header
+        if (http.begin(client, "http://192.168.0.99/soil/" + WiFi.macAddress() + "=" + analogRead(analogInPin)))
+         { 
             int httpCode = http.GET();
             http.end();
-        }
+         }
+
     }
 
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(1000);
+    delay(10000); // every 30 seconds
 }

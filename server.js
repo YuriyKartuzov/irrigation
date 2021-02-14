@@ -8,8 +8,6 @@ const server = require('http').createServer(app);
 // Module for cameraView
 const PiCamera = require('pi-camera');
 
-
-
 // Middleware
 app.use(express.static('public'))
 app.use(express.static('api'))
@@ -64,8 +62,8 @@ app.get("/lcd/weather/", (request, response) => {
 
 app.get("/lcd/soilsensors/", (req, res) => {
    lcd.printESP8266()
-      .then(response.sendStatus(200))
-      .catch(response.sendStatus(500));
+      .then(res.end("OK"))
+      .catch(res.end("500"));
 })
 
 app.get("/term/:cmd", (req, res) => {
@@ -105,4 +103,5 @@ app.get("/getPic", (req, res) => {
 // SERVER start
 server.listen(80, () => {
    console.log("Server started on IP 192.168.0.99 port 80");
+   lcd.startupScreen('Rasby restarted ' + new Date());
 });
