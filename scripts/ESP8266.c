@@ -23,7 +23,7 @@ void setup()
     delay(2000);
 
     WiFi.mode(WIFI_STA);
-    WiFiMulti.addAP("Kartz", "wasaga2020");
+    WiFiMulti.addAP("*****", "*****");
 }
 
 void loop()
